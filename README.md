@@ -82,7 +82,7 @@ WeepFlix es una plataforma móvil que replica la experiencia de un servicio de s
 
 ## 7. Interfaz Figma
 
-[Ver diseño en Figma](https://www.figma.com/design/v8P4ZVTqdvu2PgsIOR1X6M/WEPFLIX)
+[Ver diseño en Figma](https://www.figma.com/design/v8P4ZVTqdvu2PgsIOR1X6M/WEPFLIX?node-id=55-23&t=09V0w44KsBUVZfs3-1))
 
 ---
 
