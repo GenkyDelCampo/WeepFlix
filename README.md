@@ -56,7 +56,7 @@ WeepFlix es una plataforma móvil que replica la experiencia de un servicio de s
 
 ## 4. Diagramas de Casos de Uso
 
-> *(Próximamente)*
+> ![Diagrama de Casos de Uso](casos_de_uso.png)
 
 ---
 
@@ -76,7 +76,7 @@ WeepFlix es una plataforma móvil que replica la experiencia de un servicio de s
 
 ## 6. Diagrama Entidad-Relación
 
-> *(Próximamente)*
+> ![Diagrama ER](diagrama_er.png)
 
 ---
 
