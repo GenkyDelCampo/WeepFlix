@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WeepFlix</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════ AUTH ═══════════════ -->
+<div id="auth-screen" class="auth-wrap">
+  <div class="auth-box">
+    <div class="logo-auth">
+      <div class="logo-circle">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="104" height="104">
+          <circle cx="60" cy="60" r="58" fill="#1a0000" stroke="#cc0000" stroke-width="3"/>
+          <ellipse cx="60" cy="68" rx="26" ry="30" fill="#c68642"/>
+          <rect x="30" y="38" width="60" height="14" rx="7" fill="#1a3a6b"/>
+          <ellipse cx="60" cy="38" rx="30" ry="10" fill="#1a3a6b"/>
+          <rect x="28" y="44" width="22" height="7" rx="3" fill="#1a3a6b"/>
+          <text x="60" y="48" text-anchor="middle" fill="white" font-size="8" font-weight="bold">MLB</text>
+          <ellipse cx="50" cy="67" rx="5" ry="6" fill="white"/>
+          <ellipse cx="70" cy="67" rx="5" ry="6" fill="white"/>
+          <circle cx="51" cy="68" r="3" fill="#2a1a00"/>
+          <circle cx="71" cy="68" r="3" fill="#2a1a00"/>
+          <circle cx="52" cy="67" r="1" fill="white"/>
+          <circle cx="72" cy="67" r="1" fill="white"/>
+          <ellipse cx="60" cy="76" rx="3" ry="2" fill="#a0622a"/>
+          <path d="M52 83 Q60 89 68 83" stroke="#7a3a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <rect x="52" y="95" width="16" height="12" rx="4" fill="#c68642"/>
+        </svg>
+      </div>
+      <h1 class="brand-auth">WeepFlix</h1>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="panel-login" class="form-panel active">
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm">
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input type="email" id="l-email" required placeholder="tu@correo.com"/>
+        </div>
+        <div class="field">
+          <label>Contraseña</label>
+          <div class="pw-wrap">
+            <input type="password" id="l-pass" required placeholder="••••••••"/>
+            <button type="button" class="pw-toggle" onclick="togglePw('l-pass', this)">MOSTRAR</button>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Iniciar sesión</button>
+      </form>
+      <p class="auth-switch">¿No tienes cuenta? <a onclick="switchPanel('register')">Regístrate aquí</a></p>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="panel-register" class="form-panel">
+      <h2>Crear cuenta</h2>
+      <form id="registerForm">
+        <div class="field">
+          <label>Nombre completo</label>
+          <input type="text" id="r-name" required placeholder="Tu nombre"/>
+        </div>
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input type="email" id="r-email" required placeholder="tu@correo.com"/>
+        </div>
+        <div class="field">
+          <label>Contraseña</label>
+          <div class="pw-wrap">
+            <input type="password" id="r-pass" required placeholder="Mín. 6 caracteres"/>
+            <button type="button" class="pw-toggle" onclick="togglePw('r-pass', this)">MOSTRAR</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <input type="password" id="r-conf" required placeholder="Repite tu contraseña"/>
+        </div>
+        <button type="submit" class="btn-primary">Crear cuenta</button>
+      </form>
+      <p class="auth-switch">¿Ya tienes cuenta? <a onclick="switchPanel('login')">Inicia sesión</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN APP ═══════════════ -->
+<div id="main-app" class="hidden">
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-inner">
+      <div class="logo-nav">
+        <button class="logo-btn" onclick="showSection('home')">WeepFlix</button>
+        <nav class="nav-btns">
+          <button class="nav-btn active" data-sec="home"    onclick="showSection('home')">🏠 Inicio</button>
+          <button class="nav-btn"        data-sec="catalog" onclick="showSection('catalog')">🎬 Catálogo</button>
+          <button class="nav-btn"        data-sec="mylist"  onclick="showSection('mylist')">❤️ Mi Lista</button>
+          <button class="nav-btn"        data-sec="contact" onclick="showSection('contact')">📩 Contacto</button>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="search-wrap">
+          <input type="text" id="search-input" placeholder="Buscar películas..." oninput="doSearch()"/>
+          <div id="search-drop" class="search-drop"></div>
+        </div>
+        <div class="user-pill">
+          <span id="user-name">Usuario</span>
+          <button class="btn-logout" onclick="logout()">Salir</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-app-content">
+
+    <!-- INICIO -->
+    <div id="sec-home" class="section-view active">
+      <div class="hero">
+        <div class="hero-content">
+          <h2>Bienvenido a WeepFlix</h2>
+          <p>Tu plataforma de streaming con las mejores películas y series</p>
+          <button class="btn-hero" onclick="showSection('catalog')">Ver Catálogo Completo</button>
+        </div>
+      </div>
+      <h3 class="section-subtitle">📂 Géneros</h3>
+      <div class="cats-grid">
+        <div class="cat-card" onclick="filterCat('Acción')"><span class="cat-icon">💥</span><span>Acción</span></div>
+        <div class="cat-card" onclick="filterCat('Comedia')"><span class="cat-icon">😂</span><span>Comedia</span></div>
+        <div class="cat-card" onclick="filterCat('Terror')"><span class="cat-icon">😱</span><span>Terror</span></div>
+        <div class="cat-card" onclick="filterCat('Sci-Fi')"><span class="cat-icon">🚀</span><span>Ciencia Ficción</span></div>
+        <div class="cat-card" onclick="filterCat('Drama')"><span class="cat-icon">🎭</span><span>Drama</span></div>
+        <div class="cat-card" onclick="filterCat('Animación')"><span class="cat-icon">✨</span><span>Animación</span></div>
+      </div>
+      <h3 class="section-subtitle">🔥 Tendencias</h3>
+      <div id="home-featured" class="movies-grid"></div>
+    </div>
+
+    <!-- CATÁLOGO -->
+    <div id="sec-catalog" class="section-view">
+      <div class="section-header">
+        <h2>🎬 Catálogo Completo</h2>
+        <div class="filter-row">
+          <select id="f-genre" onchange="renderCatalog()">
+            <option value="">Todos los géneros</option>
+            <option>Acción</option>
+            <option>Comedia</option>
+            <option>Terror</option>
+            <option>Sci-Fi</option>
+            <option>Drama</option>
+            <option>Animación</option>
+          </select>
+          <select id="f-sort" onchange="renderCatalog()">
+            <option value="rating">Mayor calificación</option>
+            <option value="year">Más recientes</option>
+            <option value="az">A → Z</option>
+          </select>
+        </div>
+      </div>
+      <div id="catalog-grid" class="movies-grid"></div>
+    </div>
+
+    <!-- MI LISTA -->
+    <div id="sec-mylist" class="section-view">
+      <div class="section-header"><h2>❤️ Mi Lista</h2></div>
+      <div id="mylist-grid" class="movies-grid"></div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div id="sec-contact" class="section-view">
+      <div class="contact-grid">
+        <div class="contact-info-box">
+          <h2>Contáctanos</h2>
+          <p>¿Tienes dudas o sugerencias? Escríbenos.</p>
+          <div class="ci-item"><span>📧</span><div><strong>soporte@weepflix.com</strong><p>Respuesta en 24 hrs</p></div></div>
+          <div class="ci-item"><span>📍</span><div><strong>Culiacán, Sinaloa</strong><p>México</p></div></div>
+          <div class="ci-item"><span>🕐</span><div><strong>Lunes – Viernes</strong><p>9:00 AM – 6:00 PM</p></div></div>
+        </div>
+        <div class="contact-form-box">
+          <h2>Enviar Mensaje</h2>
+          <form id="contactForm">
+            <div class="field"><label>Nombre</label><input type="text" id="c-name" required placeholder="Tu nombre"/></div>
+            <div class="field"><label>Correo</label><input type="email" id="c-email" required placeholder="tu@correo.com"/></div>
+            <div class="field"><label>Asunto</label><input type="text" id="c-subject" required placeholder="¿En qué podemos ayudarte?"/></div>
+            <div class="field"><label>Mensaje</label><input type="text" id="c-msg" required placeholder="Escribe tu mensaje aquí..."/></div>
+            <button type="submit" class="btn-primary">Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-thumb" id="m-thumb"></div>
+    <div class="modal-body">
+      <h2 id="m-title"></h2>
+      <div class="modal-meta-row">
+        <span id="m-year"></span>
+        <span id="m-genre"></span>
+        <span class="modal-rating-badge" id="m-rating"></span>
+      </div>
+      <p id="m-desc"></p>
+      <div class="modal-actions">
+        <button class="btn-play-big" onclick="toast('▶ Reproduciendo... (demo)', 'info')">▶ Reproducir</button>
+        <button class="btn-play-big btn-list" id="m-list-btn"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="app.js"></script>
+</body>
+</html>
